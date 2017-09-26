@@ -16,15 +16,28 @@
 import sys
 import os
 
+# General information about the project.
+project = 'shablona'
+copyright = '2015, Ariel Rokem'
+
+currentdir = os.path.abspath(os.path.dirname(__file__))
+ver_file = os.path.join(currentdir, '..', project, 'version.py')
+with open(ver_file) as f:
+    exec(f.read())
+source_version = __version__
+
+currentdir = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(os.path.join(currentdir, 'tools'))
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path.insert(0, os.path.abspath('../shablona'))
+sys.path.insert(0, os.path.abspath('../'))
 
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
-needs_sphinx = '1.0' # numpydoc requires sphinc >= 1.0
+needs_sphinx = '1.0'  # numpydoc requires sphinc >= 1.0
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -36,13 +49,13 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.intersphinx',
               'sphinx.ext.todo',
               'sphinx.ext.coverage',
-              'sphinx.ext.pngmath',
               'sphinx.ext.ifconfig',
               'sphinx.ext.autosummary',
               'sphinx.ext.mathjax',
-              'math_dollar', # has to go before numpydoc
+              'math_dollar',  # has to go before numpydoc
               'numpydoc',
-              'github']
+              'github',
+              'sphinx_gallery.gen_gallery']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -51,14 +64,26 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The encoding of source files.
-#source_encoding = 'utf-8-sig'
+# source_encoding = 'utf-8-sig'
 
 # The master toctree document.
 master_doc = 'index'
 
-# General information about the project.
-project = 'shablona'
-copyright = '2015, Ariel Rokem'
+# --- Sphinx Gallery ---
+sphinx_gallery_conf = {
+    # path to your examples scripts
+    'examples_dirs': '../examples',
+    # path where to save gallery generated examples
+    'gallery_dirs': 'auto_examples',
+    # To auto-generate example sections in the API
+    'doc_module': ('shablona',),
+    # Auto-generated mini-galleries go here
+    'backreferences_dir': 'gen_api'
+}
+
+# Automatically generate stub pages for API
+autosummary_generate = True
+autodoc_default_flags = ['members', 'inherited-members']
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -112,7 +137,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'sphinxdoc'
+html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -131,7 +156,7 @@ html_theme = 'sphinxdoc'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+html_logo = '_static/logo.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -157,7 +182,7 @@ html_static_path = ['_static']
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+html_sidebars = {'**': ['localtoc.html', 'searchbox.html']}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
@@ -274,4 +299,3 @@ texinfo_domain_indices = False
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'http://docs.python.org/': None}
-

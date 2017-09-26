@@ -47,16 +47,11 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
 
-api:
-	@mkdir -p reference
-	$(PYTHON) tools/build_modref_templates.py shablona reference
-	@echo "Build API docs...done."
-
 clean:
 	rm -rf $(BUILDDIR)/*
 	rm -rf reference/*
 
-html: api
+html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
@@ -182,3 +177,6 @@ pseudoxml:
 	$(SPHINXBUILD) -b pseudoxml $(ALLSPHINXOPTS) $(BUILDDIR)/pseudoxml
 	@echo
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
+
+show:
+	@python -c "import webbrowser; webbrowser.open_new_tab('file://$(PWD)/_build/html/index.html')"

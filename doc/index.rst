@@ -19,12 +19,5 @@ Contents:
    :maxdepth: 2
 
    theory
-   reference/index
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   auto_examples/index
+   api
